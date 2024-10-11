@@ -1,0 +1,52 @@
+.tickerWrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  /* Background color */
+}
+
+.ticker {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scroll-left 40s linear infinite;
+  /* Adjust the timing for speed */
+}
+
+/* Style for each image container */
+.imageContainer {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  width: 150px;
+  /* Set the width of each image */
+  height: auto;
+  /* Set the height of each image */
+  margin-right: 20px;
+  /* Spacing between images */
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Ensures the images are scaled to fill the container */
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+    /* Start with the first set of images fully visible */
+  }
+
+  100% {
+    transform: translateX(-50%);
+    /* Move the images to the left until the second set is fully visible */
+  }
+}
+
+/* Pause the animation when hovering or clicking */
+.tickerWrapper:hover .ticker,
+.tickerWrapper:active .ticker {
+  animation-play-state: paused;
+}
