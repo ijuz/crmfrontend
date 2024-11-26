@@ -6,35 +6,13 @@ import TickerImages from "./components/TickerImages";
 import CliVoiceTerminationSpecialComponent from "./components/CLISpecialComponent";
 import BusinessServices from "./components/BusinessServices";
 import BuisinessAnalitics from "./components/BuisinessAnalitics";
-import FAQ from "./faq/page";
-
-const cardDataCLI = [
-  {
-    id: 1,
-    title: "Card 1",
-    content: { key1: "Name", value1: "John", key2: "Age", value2: "28" },
-  },
-  {
-    id: 2,
-    title: "Card 2",
-    content: { key1: "Name", value1: "Alice", key2: "Age", value2: "34" },
-  },
-  {
-    id: 3,
-    title: "Card 3",
-    content: { key1: "Name", value1: "Bob", key2: "Age", value2: "45" },
-  },
-  {
-    id: 4,
-    title: "Card 4",
-    content: { key1: "Name", value1: "Emma", key2: "Age", value2: "23" },
-  },
-  {
-    id: 5,
-    title: "Card 5",
-    content: { key1: "Name", value1: "Olivia", key2: "Age", value2: "30" },
-  },
-];
+import FAQ from "./components/FAQ";
+import FloatingButton from "./components/SpecialRatesPopup";
+import SocialMediaTabs from "./components/SocialMedaPopup";
+import Chatbot from "./chatbot/page";
+import Head from "next/head";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 const imageUrls = [
   "/flags/Austrelia.png",
@@ -46,9 +24,10 @@ const imageUrls = [
   "/flags/Hongkong.png",
   "/flags/Italy.png",
   "/flags/Malesiya.png",
-  "/flags/New-Zealand.png",
+  "/flags/New Zealand.png",
   "/flags/Singapur.png",
   "/flags/Spain.png",
+  
 ];
 
 
@@ -56,9 +35,19 @@ const imageUrls = [
 
 export default function HomePage() {
   return (
-    <div>
+    <>
+    <Head>
+    <meta property="og:title" content="Cloudqlobe" />
+    <meta property="og:description" content="Cloud Qlobe enables our wholesale VoIP service providers and carriers to operate from anywhere in the world." />
+    <meta property="og:image" content="https://www.cloudqlobe.com/_next/image?url=%2Fimages%2Flogo.png&w=32&q=75" />
+    <meta property="og:url" content="https://www.cloudqlobe.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Cloud Qlobe" />
+  </Head>
+    <div style ={{background:"white"}}>
+      <Header/>
       <Carousel />
-      <Ticker cards={cardDataCLI} />
+      <Ticker />
       <VoiceOfferings />
       <Services />
       <BuisinessAnalitics/>
@@ -66,6 +55,10 @@ export default function HomePage() {
       <BusinessServices/>
       <TickerImages images={imageUrls} />
       <FAQ/>
-    </div>
+      <FloatingButton/>
+      <SocialMediaTabs/>
+      <Chatbot/>
+      <Footer/>
+    </div></>
   );
 }

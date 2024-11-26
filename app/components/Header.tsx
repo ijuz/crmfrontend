@@ -1,58 +1,102 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
+import {
+  Globe,
+  LogOut,
+  LayoutDashboard,
+  UserPlus,
+  LogIn,
+} from "lucide-react";
 
 const Header: React.FC = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [isLanguageDropdownOpen, setLanguageDropdownOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState("English");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const toggleDropdown = () => {
-    setDropdownOpen((prev) => !prev);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const languageRef = useRef<HTMLDivElement>(null);
+
+  const toggleDropdown = () => setDropdownOpen((prev) => !prev);
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const toggleLanguageDropdown = () => setLanguageDropdownOpen((prev) => !prev);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      setDropdownOpen(false);
+    }
+    if (languageRef.current && !languageRef.current.contains(event.target as Node)) {
+      setLanguageDropdownOpen(false);
+    }
   };
 
-  const toggleMenu = () => {
-    setMenuOpen((prev) => !prev);
+  const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
+  const handleLanguageChange = (language: string) => {
+    setSelectedLanguage(language);
+    setLanguageDropdownOpen(false);
   };
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    window.location.reload();
   };
 
-  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Handle search submit logic (e.g., redirect or fetch search results)
-    console.log("Search query:", searchQuery);
-  };
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) setIsLoggedIn(true);
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const navItemClasses =
+    "text-white hover:text-orange-500 px-3 py-1 border border-transparent hover:scale-110 transition-all duration-200";
+  const buttonBaseClasses =
+    "flex items-center space-x-4 px-6 py-2 text-white rounded-md transition-all duration-200 hover:scale-110 hover:space-x-6";
 
   return (
-    <nav className="flex items-center justify-between p-4 bg-[#323F3F] shadow-md fixed top-0 left-0 right-0 z-50 w-full">
-      <Link href="/" className="block">
-        <img src="/images/logo.png" alt="CloudGlobe" className="h-8 w-auto" />
-      </Link>
+    <nav className="flex justify-between items-center p-0 bg-[#323F3F] shadow-md fixed top-0 left-0 right-0 z-50 w-full">
+      {/* Left Section */}
+      <div className="flex items-center" style={{ marginLeft: "1em" }}>
+        <Link href="/" className="block p-0 hover:scale-110 transition-all duration-200">
+          <Image
+            src="/images/logohh.svg"
+            alt="Cloudqlobe"
+            width={32}
+            height={32}
+            className="h-16 w-48"
+          />
+        </Link>
+      </div>
 
-      <div className="flex items-center space-x-6 ml-4">
-        {/* Navigation Links */}
-        <div className="hidden md:flex items-center space-x-6">
-          <Link href="/" className="text-white hover:text-orange-500">
-            Home
+      {/* Center Section */}
+      <div className="flex items-center space-x-1">
+        <div className="hidden md:flex items-center space-x-0" style={{ marginRight: "1em" }}>
+          <Link href="/" className={navItemClasses}>
+            <span>Home</span>
           </Link>
-          <Link href="/about" className="text-white hover:text-orange-500">
-            About
+          <Link href="/about" className={navItemClasses}>
+            <span>About</span>
           </Link>
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             <button
               onClick={toggleDropdown}
-              className="flex items-center text-white hover:text-orange-500"
+              className={navItemClasses + " flex items-center"}
             >
-              Services
+              <span>Services</span>
               <svg
                 className="ml-2 w-4 h-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   strokeLinecap="round"
@@ -66,165 +110,115 @@ const Header: React.FC = () => {
               <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10">
                 <Link
                   href="/services/CC-Routes"
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:scale-105 transition-transform duration-200"
                 >
                   CC Routes
                 </Link>
                 <Link
                   href="/services/CLI-Voice-Termination"
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:scale-105 transition-transform duration-200"
                 >
                   CLI Voice Termination
+                </Link>
+                <Link
+                  href="/services/DID-Voice-Solutions"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:scale-105 transition-transform duration-200"
+                >
+                  DID Voice Solutions
                 </Link>
               </div>
             )}
           </div>
-          <Link href="/contacts" className="text-white hover:text-orange-500">
-            Contact
+          <Link href="/contacts" className={navItemClasses}>
+            <span>Contact</span>
           </Link>
-          <Link href="/pricing" className="text-white hover:text-orange-500">
-            Rates
+          <Link href="/pricing" className={navItemClasses}>
+            <span>Rates</span>
           </Link>
-          <Link href="/faq" className="text-white hover:text-orange-500">
-            FAQ
+          <Link href="/faq" className={navItemClasses}>
+            <span>FAQ</span>
           </Link>
         </div>
-
-        {/* Search Bar without Button */}
-        <form onSubmit={handleSearchSubmit} className="flex items-center">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={handleSearchChange}
-            placeholder="Search..."
-            className="px-4 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
-            style={{
-              backgroundColor: "rgba(255, 255, 255, 0.1)", // Semi-transparent background
-              opacity: 0.3, // Reduced opacity for input field
-            }}
-          />
-        </form>
-
-        {/* Hamburger Icon for Mobile */}
-        <div className="md:hidden">
+        <div className="relative" ref={languageRef}>
           <button
-            onClick={toggleMenu}
-            className="flex items-center text-white focus:outline-none"
+            onClick={toggleLanguageDropdown}
+            className="flex items-center text-white hover:text-orange-500 px-8 py-1 border border-gray-400 hover:border-orange-500 bg-transparent rounded-md hover:scale-110 transition-all duration-200"
           >
+            <Globe size={20} className="mr-2" />
+            {selectedLanguage}
             <svg
-              className="w-6 h-6"
+              className="ml-2 w-4 h-4"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M4 6h16M4 12h16m-7 6h7"
+                d="M19 9l-7 7-7-7"
               />
             </svg>
           </button>
+          {isLanguageDropdownOpen && (
+            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+              {[
+                "English",
+                "German",
+                "Spanish",
+                "French",
+                "Italian",
+                "Chinese",
+                "Japanese",
+              ].map((language) => (
+                <button
+                  key={language}
+                  onClick={() => handleLanguageChange(language)}
+                  className="block w-full px-4 py-2 text-gray-700 hover:bg-gray-100 hover:scale-105 transition-transform duration-200 text-left"
+                >
+                  {language}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden absolute top-16 left-0 w-full bg-[#323F3F] shadow-lg z-10">
-          <Link
-            href="/"
-            className="block px-4 py-2 text-white hover:bg-orange-500"
-          >
-            Home
-          </Link>
-          <Link
-            href="/about"
-            className="block px-4 py-2 text-white hover:bg-orange-500"
-          >
-            About
-          </Link>
-          <div className="relative">
+      {/* Right Section */}
+      <div className="flex items-center space-x-3" style={{ marginRight: "1em" }}>
+        {isLoggedIn ? (
+          <>
+            {/* <Link href="https://www.cloudqlobe.com/modules/customer/pages/home"> */}
+            <Link href={`${SERVER_URL}/modules/customer/pages/home`}>
+              <button className={`${buttonBaseClasses} bg-blue-600 hover:bg-blue-700`}>
+                <LayoutDashboard size={18} />
+                <span>Dashboard</span>
+              </button>
+            </Link>
             <button
-              onClick={toggleDropdown}
-              className="flex items-center justify-between w-full px-4 py-2 text-left text-white hover:bg-orange-500"
+              onClick={handleLogout}
+              className={`${buttonBaseClasses} bg-red-600 hover:bg-red-700`}
             >
-              Services
-              <svg
-                className="ml-2 w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+              <LogOut size={18} />
+              <span>Logout</span>
             </button>
-            {isDropdownOpen && (
-              <div className="pl-4">
-                <Link
-                  href="/services/CC-Routes"
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                >
-                  CC Routes
-                </Link>
-                <Link
-                  href="/services/CLI-Voice-Termination"
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                >
-                  CLI Voice Termination
-                </Link>
-              </div>
-            )}
-          </div>
-          <Link
-            href="/contacts"
-            className="block px-4 py-2 text-white hover:bg-orange-500"
-          >
-            Contact
-          </Link>
-          <Link
-            href="/pricing"
-            className="block px-4 py-2 text-white hover:bg-orange-500"
-          >
-            Rates
-          </Link>
-          <Link
-            href="/faq"
-            className="block px-4 py-2 text-white hover:bg-orange-500"
-          >
-            FAQ
-          </Link>
-          <Link href="/auth/signup">
-            <button className="w-full px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-md">
-              SIGN UP
-            </button>
-          </Link>
-          <Link href="/auth/login">
-            <button className="w-full px-4 py-2 text-white bg-gray-600 hover:bg-gray-700 rounded-md">
-              LOGIN
-            </button>
-          </Link>
-        </div>
-      )}
-
-      {/* Sign Up and Login buttons (for larger screens) */}
-      <div className="hidden md:flex items-center space-x-2">
-        <Link href="/auth/signup">
-          <button className="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-md">
-            SIGN UP
-          </button>
-        </Link>
-        <Link href="/auth/login">
-          <button className="px-4 py-2 text-white bg-gray-600 hover:bg-gray-700 rounded-md">
-            LOGIN
-          </button>
-        </Link>
+          </>
+        ) : (
+          <>
+            <Link href="https://www.cloudqlobe.com/modules/auth/Base/Signup">
+              <button className={`${buttonBaseClasses} bg-green-600 hover:bg-green-700`}>
+                <UserPlus size={18} />
+                <span>SIGN UP</span>
+              </button>
+            </Link>
+            <Link href={`${SERVER_URL}/modules/auth/Base/login`}>
+              <button className={`${buttonBaseClasses} bg-orange-400 hover:bg-orange-500`}>
+                <LogIn size={18} />
+                <span>LOGIN</span>
+              </button>
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   );

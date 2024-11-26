@@ -49,16 +49,17 @@
   automatically between light and dark mode based on the media query.
 */
 body {
-  color: var(--background);
+  color: #1a1a2e;
   /* Text color based on light/dark mode */
-  background: var(--foreground);
+  background: #f4f4f9;
   /* Background color based on light/dark mode */
-
+  width: 100%;
   /* Global font settings */
   font-family: Arial, Helvetica, sans-serif;
   /* Fallback font stack */
+  
 }
-
+ 
 /* 
   Custom utility class definition for text wrapping.
   The 'text-wrap: balance;' property ensures that text is 

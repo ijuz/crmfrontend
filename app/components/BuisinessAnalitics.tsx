@@ -13,9 +13,9 @@ const BuisinessAnalitics = () => {
         />
         <StatCard
           title="Live Clients"
-          value="1000+"
+          value="500+"
           color="#68bd45"
-          percentage={90}
+          percentage={60}
           icon="👤"
         />
         <StatCard

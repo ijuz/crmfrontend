@@ -29,9 +29,9 @@
 
 .card {
     display: inline-block;
-    width: 250px;
+    width: 260px;
     /* Adjust the width of the card */
-    height: auto;
+    height: 60px;
     /* Adjust the height of the card */
     margin-right: 20px;
     margin-top: 8px;
@@ -72,3 +72,26 @@
         /* Move the cards to the left until the second set is fully visible */
     }
 }
+/* ticker.css */
+@keyframes ticker {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .animate-ticker {
+    display: flex;
+    animation: ticker 15s linear infinite; /* Adjust duration as needed */
+  }
+  
+  .flex {
+    display: flex;
+  }
+  
+  .flex-shrink-0 {
+    flex-shrink: 0;
+  }
+  

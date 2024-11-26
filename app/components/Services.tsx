@@ -1,83 +1,81 @@
 import React from "react";
+import Image from "next/image"; // Import the Image component from Next.js
 import styles from "./Services.module.css";
+import servicesContent from "../../public/Strings/en_strings.json"; // Import the JSON file
 
 const Services: React.FC = () => {
   return (
     <div className={styles.servicesBody}>
+      {/* Section 1 */}
       <section className={styles.services}>
         <h2 className={styles.heading}>Our Services</h2>
 
         <div className={styles.content}>
           <div className={styles.illustration}>
-            <img
-              src="./images/Services_section_img-1.png"
-              alt="VoIP Illustration"
+            <Image
+              src={servicesContent["SERVICES_SECTION-1_IMAGE_SRC"]}
+              alt={servicesContent["SERVICES_SECTION-1_IMAGE_ALT"]}
               className={styles.illustrationImage}
+              width={500} // Specify the width of the image (adjust as needed)
+              height={300} // Specify the height of the image (adjust as needed)
             />
           </div>
 
           <div className={styles.textContent}>
-            <h3 className={styles.serviceTitle}>CLI VOICE TERMINATION</h3>
+            <h3 className={styles.serviceTitle}>
+              {servicesContent["SERVICES_SECTION-1_TITLE"]}
+            </h3>
             <p className={styles.serviceDescription}>
-              Cloud Qlobe allows our wholesale VoIP service providers and
-              carriers to do operations from anywhere in the world. The services
-              will help clients to Connect, Buy or sell and offer high- end VoIP
-              termination services to their customers. This wholesale VoIP &
-              routes will allow our clients to generate new revenue
-              opportunities in a stable and secure environment across a huge
-              range of telecoms services.
+              {servicesContent["SERVICES_SECTION-1_DESCRIPTION"]}
             </p>
           </div>
         </div>
       </section>
+
+      {/* Section 2 */}
       <section className={styles.services}>
         <div className={styles.content}>
           <div className={styles.textContent}>
-            <h3 className={styles.serviceTitle}>CC VOICE SOLUTIONS</h3>
+            <h3 className={styles.serviceTitle}>
+              {servicesContent["SERVICES_SECTION-2_TITLE"]}
+            </h3>
             <p className={styles.serviceDescription}>
-              CC Traffic is a routing method used in call centers to efficiently
-              control a high volume of calls. The routes involve advanced
-              processes such as call request distribution, customer support
-              resources, and call load balancing. CC Traffic refers to the
-              traffic of phone calls that are received and routed through the
-              call center. This typically includes incoming customer service
-              calls, sales inquiries, and other types of communication. By
-              analyzing call traffic data, businesses can determine their peak
-              call volumes and optimize their routing strategies to ensure
-              efficient handling of calls.
+              {servicesContent["SERVICES_SECTION-2_DESCRIPTION"]}
             </p>
           </div>
 
           <div className={styles.illustration}>
-            <img
-              src="./images/Services_section_img-2.png"
-              alt="CC Voice Solutions Illustration"
+            <Image
+              src={servicesContent["SERVICES_SECTION-2_IMAGE_SRC"]}
+              alt={servicesContent["SERVICES_SECTION-2_IMAGE_ALT"]}
               className={styles.illustrationImage}
+              width={500}
+              height={300}
             />
           </div>
         </div>
       </section>
-      <section className={styles.services}>
 
+      {/* Section 3 */}
+      <section className={styles.services}>
         <div className={styles.content}>
-          <div className={styles.illustration}>
-            <img
-              src="./images/Services_section_img-1.png"
-              alt="VoIP Illustration"
+          <div className={styles.illustration} >
+            <Image
+            style={{height:"300px"}}
+              src={servicesContent["SERVICES_SECTION-3_IMAGE_SRC"]}
+              alt={servicesContent["SERVICES_SECTION-3_IMAGE_ALT"]}
               className={styles.illustrationImage}
+              width={400}
+              height={200}
             />
           </div>
 
-          <div className={styles.textContent}>
-            <h3 className={styles.serviceTitle}>CLI VOICE TERMINATION</h3>
+          <div className={styles.textContent} style={{marginTop: "2em"}}>
+            <h3 className={styles.serviceTitle}>
+              {servicesContent["SERVICES_SECTION-3_TITLE"]}
+            </h3>
             <p className={styles.serviceDescription}>
-              Cloud Qlobe allows our wholesale VoIP service providers and
-              carriers to do operations from anywhere in the world. The services
-              will help clients to Connect, Buy or sell and offer high- end VoIP
-              termination services to their customers. This wholesale VoIP &
-              routes will allow our clients to generate new revenue
-              opportunities in a stable and secure environment across a huge
-              range of telecoms services.
+              {servicesContent["SERVICES_SECTION-3_DESCRIPTION"]}
             </p>
           </div>
         </div>

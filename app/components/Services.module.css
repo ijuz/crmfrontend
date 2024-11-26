@@ -26,7 +26,7 @@
 
 .content {
   display: flex;
-  align-items: center;
+  align-items: justify;
   gap: 3rem;
 }
 
@@ -59,6 +59,7 @@
 .serviceDescription {
   color: #666;
   line-height: 1.6;
+  text-align: justify;
 }
 
 .specialOffers {

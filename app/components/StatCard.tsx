@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 interface StatCardProps {
   title: string;
@@ -16,6 +18,8 @@ const StatCard = ({ title, value, color, percentage, icon }: StatCardProps) => {
   const cardRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    const currentCardRef = cardRef.current;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -25,13 +29,13 @@ const StatCard = ({ title, value, color, percentage, icon }: StatCardProps) => {
       { threshold: 0.1 }
     );
 
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
+    if (currentCardRef) {
+      observer.observe(currentCardRef);
     }
 
     return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
+      if (currentCardRef) {
+        observer.unobserve(currentCardRef);
       }
     };
   }, []);
@@ -62,35 +66,17 @@ const StatCard = ({ title, value, color, percentage, icon }: StatCardProps) => {
       </div>
 
       <div className="relative w-32 h-32">
-        <svg className="w-full h-full transform rotate-90">
-          <circle
-            cx="64"
-            cy="64"
-            r="60"
-            fill="none"
-            stroke="#e6e6e6"
-            strokeWidth="8"
-          />
-          <circle
-            cx="64"
-            cy="64"
-            r="60"
-            fill="none"
-            stroke={color}
-            strokeWidth="8"
-            strokeDasharray={`${2 * Math.PI * 60}`}
-            strokeDashoffset={`${
-              2 * Math.PI * 60 * (1 - currentPercentage / 100)
-            }`}
-            style={{
-              transition: "stroke-dashoffset 0.5s ease-out",
-            }}
-          />
-        </svg>
-        <div
-          className="absolute inset-0 flex items-center justify-center text-2xl"
-          style={{ color }}
-        >
+        <CircularProgressbar
+          value={currentPercentage}
+          
+          styles={buildStyles({
+            pathColor: color,
+            textColor: color,
+            trailColor: "#e6e6e6",
+            strokeLinecap: 'round',
+          })}
+        />
+        <div className="absolute inset-0 flex items-center justify-center text-2xl" style={{ color }}>
           {icon}
         </div>
       </div>

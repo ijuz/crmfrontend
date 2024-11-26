@@ -1,111 +1,195 @@
 import React from "react";
-import styles from "./Footer.module.css";
-import { Phone, Mail, MapPin } from "lucide-react";
+import Image from "next/image"; // Import the Image component from Next.js
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
-    <footer className={`${styles.footer} bg-gray-800 text-white py-8`}>
-      <div className="container mx-auto px-4 flex flex-wrap justify-between items-start">
-        <div className={`${styles.logoSection} mb-6 md:mb-0`}>
-          <img
-            src="images/logo.png"
-            alt="Cloud Globe"
-            className="w-40 mb-2"
-          />
-          <p className="text-sm">Connecting Continents</p>
-          <p className="text-sm mt-4">Copyright © 2024 All Rights Reserved</p>
-        </div>
-
-        <div className={styles.linksSection}>
-          <h3 className="text-orange-400 font-bold mb-4">Quick Links</h3>
+    <footer className="bg-[#323F3F] text-gray-300 py-12 px-6">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+        {/* Quick Links */}
+        <div>
+          <h3 className="text-orange-500 text-xl font-semibold mb-4">
+            Quick Links
+          </h3>
           <ul className="space-y-2">
             <li>
-              <a
-                href="#rates"
-                className="hover:text-orange-400 transition-colors"
-              >
+              <a href="/pricing" className="hover:text-orange-500 transition-colors">
                 Rates
               </a>
             </li>
             <li>
-              <a
-                href="#cc-routes"
-                className="hover:text-orange-400 transition-colors"
-              >
+              <a href="/services/CC-Routes" className="hover:text-orange-500 transition-colors">
                 CC Routes
               </a>
             </li>
             <li>
-              <a
-                href="#cli-voice"
-                className="hover:text-orange-400 transition-colors"
-              >
+              <a href="/services/CLI-Voice-Termination" className="hover:text-orange-500 transition-colors">
                 CLI Voice Termination
               </a>
             </li>
             <li>
-              <a
-                href="#about"
-                className="hover:text-orange-400 transition-colors"
-              >
+              <a href="/services/DID-Voice-Solutions" className="hover:text-orange-500 transition-colors">
+                DID Solutions
+              </a>
+            </li>
+            <li>
+              <a href="/about" className="hover:text-orange-500 transition-colors">
                 About
+              </a>
+            </li>
+            <li>
+              <a href="/faq" className="hover:text-orange-500 transition-colors">
+                FAQ
               </a>
             </li>
           </ul>
         </div>
 
-        <div className={styles.contactSection}>
-          <div className="flex items-center mb-2">
-            <Phone size={16} className="mr-2 text-orange-400" />
-            <span>+44 7418365876</span>
-          </div>
-          <div className="flex items-center mb-2">
-            <Mail size={16} className="mr-2 text-orange-400" />
-            <a
-              href="mailto:marketing@cloudqlobe.com"
-              className="hover:text-orange-400 transition-colors"
-            >
-              marketing@cloudqlobe.com
-            </a>
-          </div>
-          <div className="flex items-start">
-            <MapPin size={16} className="mr-2 mt-1 text-orange-400" />
-            <p>
-              44 Heung Yip Road,
-              <br />
-              Southern District, Hong Kong,
-              <br />
-              ZIP CODE: 999077
-            </p>
-          </div>
+        {/* Contact Us */}
+        <div>
+          <h3 className="text-orange-500 text-xl font-semibold mb-4">
+            Contact us
+          </h3>
+          <ul className="space-y-3">
+            <li className="flex items-center gap-2">
+              <span>+44 741836587</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span>marketing@cloudqlobe.com</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span>sales@cloudqlobe.com</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span>carriers@cloudqlobe.com</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <div>
+                44 Heung Yip Road,
+                <br />
+                Southern District, Hong Kong,
+                <br />
+                ZIP CODE: 999077
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        {/* Connect with us (Social Media) */}
+        <div>
+          <h3 className="text-orange-500 text-xl font-semibold mb-4">
+            Connect with us :
+          </h3>
+          <ul className="space-y-3">
+            <li className="flex items-center gap-2">
+              <Image
+                src="/social-media/Facebook.png"
+                alt="Facebook"
+                className="w-5 h-5"
+                width={20}
+                height={20}
+              />
+              <a href="https://facebook.com/cloudqlobe" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors">
+                facebook.com/cloudqlobe
+              </a>
+            </li>
+            <li className="flex items-center gap-2">
+              <Image
+                src="/social-media/Linkedin.png"
+                alt="LinkedIn"
+                className="w-5 h-5"
+                width={20}
+                height={20}
+              />
+              <a href="https://linkedin.com/company/cloud-qlobe/" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors">
+                linkedin.com/cloud-qlobe/
+              </a>
+            </li>
+            <li className="flex items-center gap-2">
+              <Image
+                src="/social-media/Whatsapp.png"
+                alt="WhatsApp"
+                className="w-5 h-5"
+                width={20}
+                height={20}
+              />
+              <a href="https://wa.me/9876543210" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors">
+                whatsapp.me/9876543210
+              </a>
+            </li>
+            <li className="flex items-center gap-2">
+              <Image
+                src="/social-media/skype.png"
+                alt="Skype"
+                className="w-5 h-5"
+                width={20}
+                height={20}
+              />
+              <a href="https://skype.com/cloudqlobe" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors">
+                skype.com/cloudqlobe
+              </a>
+            </li>
+            <li className="flex items-center gap-2">
+              <Image
+                src="/social-media/Telegram.png"
+                alt="Telegram"
+                className="w-5 h-5"
+                width={20}
+                height={20}
+              />
+              <a href="https://t.me/cloudqlobe" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors">
+                telegram.me/cloudqlobe
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Join us */}
+        <div>
+          <h3 className="text-orange-500 text-xl font-semibold mb-4">
+            Join us :
+          </h3>
+          <ul className="space-y-2">
+            <li>
+              <a href="/modules/auth/Base/Signup" className="hover:text-orange-500 transition-colors">
+                Sign up
+              </a>
+            </li>
+            <li>
+              <a href="/modules/auth/Base/login" className="hover:text-orange-500 transition-colors">
+                Sign in
+              </a>
+            </li>
+            <li>
+              <a href="/modules/auth/Base/login" className="hover:text-orange-500 transition-colors">
+                Free demo
+              </a>
+            </li>
+            <li>
+              <a href="/pricing" className="hover:text-orange-500 transition-colors">
+                Special Rates
+              </a>
+            </li>
+            <li>
+              <a href="/modules/auth/Base/login" className="hover:text-orange-500 transition-colors">
+                Open Trade Account
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
 
-      <div
-        className={`${styles.socialIcons} mt-6 flex justify-center space-x-4`}
-      >
-        <a
-          href="#facebook"
-          className="bg-blue-600 p-2 rounded-full hover:bg-blue-700 transition-colors"
-        >
-          <span className="sr-only">Facebook</span>
-          {/* Replace with actual Facebook icon */}F
-        </a>
-        <a
-          href="#linkedin"
-          className="bg-blue-500 p-2 rounded-full hover:bg-blue-600 transition-colors"
-        >
-          <span className="sr-only">LinkedIn</span>
-          {/* Replace with actual LinkedIn icon */}
-          In
-        </a>
-        <a
-          href="#whatsapp"
-          className="bg-green-500 p-2 rounded-full hover:bg-green-600 transition-colors"
-        >
-          <span className="sr-only">WhatsApp</span>
-          {/* Replace with actual WhatsApp icon */}W
-        </a>
+      {/* Copyright */}
+      <div className="mt-12 text-center text-sm max-w-4xl mx-auto">
+        <p>
+          Copyright © 2024 CloudQlobe. All Rights Reserved. No part of this site
+          or its content, including text, graphics, logos, images, or any other
+          material, may be reproduced, distributed, transmitted, or used in any
+          form without the prior written consent of the copyright owner.
+        </p>
+        <p className="mt-2">
+          Unauthorized use of any material on this site is strictly prohibited
+          and may result in legal action.
+        </p>
       </div>
     </footer>
   );

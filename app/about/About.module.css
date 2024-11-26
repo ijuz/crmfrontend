@@ -5,7 +5,7 @@
 .services {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 0rem;
     font-family: Arial, sans-serif;
     background-color: #fff;
 }
@@ -27,7 +27,8 @@
 .content {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 6rem;
+    margin-left: 1rem;
 }
 
 .illustration {
@@ -37,7 +38,7 @@
 .illustrationImage {
     width: 100%;
     height: auto;
-    max-width: 400px;
+    max-width: 490px;
 }
 
 .textContent {

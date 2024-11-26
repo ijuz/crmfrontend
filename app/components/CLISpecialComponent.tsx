@@ -1,37 +1,28 @@
-import React from "react";
-import Ticker from "./Ticker";
-
+"use client";
+import React, { useState } from "react";
+import Ticker from "./TickerCli";
+import FreeTestPopup from "./FreeTestEnquiry";
+import EnquiryPopup from "./Enquiry";
+import Chatbot from '../chatbot/page'
 const CliVoiceTerminationSpecialComponent: React.FC = () => {
+  const [popupType, setPopupType] = useState<"freeTest" | "enquiry" | "chatInfo" | null>(null);
 
-    const cardDataCLI = [
-      {
-        id: 1,
-        title: "Card 1",
-        content: { key1: "Name", value1: "John", key2: "Age", value2: "28" },
-      },
-      {
-        id: 2,
-        title: "Card 2",
-        content: { key1: "Name", value1: "Alice", key2: "Age", value2: "34" },
-      },
-      {
-        id: 3,
-        title: "Card 3",
-        content: { key1: "Name", value1: "Bob", key2: "Age", value2: "45" },
-      },
-      {
-        id: 4,
-        title: "Card 4",
-        content: { key1: "Name", value1: "Emma", key2: "Age", value2: "23" },
-      },
-      {
-        id: 5,
-        title: "Card 5",
-        content: { key1: "Name", value1: "Olivia", key2: "Age", value2: "30" },
-      },
-    ];
+  const handleFreeTestClick = () => {
+    setPopupType("freeTest");
+  };
 
-    
+  const handleEnquiryClick = () => {
+    setPopupType("enquiry");
+  };
+
+  const handleChatClick = () => {
+    setPopupType("chatInfo");
+  };
+
+  const handleClosePopup = () => {
+    setPopupType(null);
+  };
+
   return (
     <div className="min-h-[400px] w-full bg-gradient-to-br from-[#323F3F] to-[#83A5A5] flex flex-col items-center justify-center ">
       <h1 className="text-3xl font-semibold text-white mb-12 mt-12">
@@ -39,20 +30,55 @@ const CliVoiceTerminationSpecialComponent: React.FC = () => {
       </h1>
 
       <div className="flex flex-wrap justify-center gap-16 mb-12">
-        <button className="px-12 py-2 bg-[#E78D44] hover:bg-[#d17c33] text-white rounded-md transition-colors duration-300 font-medium">
+        <button
+          onClick={handleFreeTestClick}
+          className="px-12 py-2 bg-[#E78D44] hover:bg-[#d17c33] text-white rounded-md transition-colors duration-300 font-medium"
+        >
           FREE TEST
         </button>
 
-        <button className="px-12 py-2 bg-[#4DA0E4] hover:bg-[#3c8fd3] text-white rounded-md transition-colors duration-300 font-medium">
+        <button
+          onClick={handleEnquiryClick}
+          className="px-12 py-2 bg-[#4DA0E4] hover:bg-[#3c8fd3] text-white rounded-md transition-colors duration-300 font-medium"
+        >
           ENQUIRY
         </button>
 
-        <button className="px-12 py-2 bg-[#7EC455] hover:bg-[#6db344] text-white rounded-md transition-colors duration-300 font-medium">
-          CHAT
-        </button>
+     
       </div>
 
-      <Ticker cards={cardDataCLI} />
+      <Ticker />
+
+      {/* Conditional rendering of Popups */}
+      {popupType === "freeTest" && <FreeTestPopup onClose={handleClosePopup} />}
+      {popupType === "enquiry" && <EnquiryPopup onClose={handleClosePopup} />}
+
+      {/* Chat Information Popup */}
+      {popupType === "chatInfo" && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg shadow-xl p-6 max-w-md relative flex flex-col items-center">
+            <button
+              onClick={handleClosePopup}
+              className="absolute top-2 right-2 p-2 rounded-full hover:bg-gray-200"
+            >
+              X
+            </button>
+            <p className="text-lg font-semibold mb-4 text-center">
+              Check the bottom right corner for the chat option!
+            </p>
+            <div className="flex items-center">
+             
+            </div>
+            <Chatbot/>
+            <button
+              onClick={handleClosePopup}
+              className="mt-6 w-full bg-blue-400 text-white py-2 px-4 rounded hover:bg-blue-500 transition duration-200"
+            >
+              Got it!
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
